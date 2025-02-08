@@ -2,11 +2,12 @@ name: algo-trader
 services:
   ib-gateway:
     restart: always
+    platform: linux/amd64
     build:
       context: ./latest
       tags:
-        - "ghcr.io/gnzsnz/ib-gateway:latest"
-    image: ghcr.io/gnzsnz/ib-gateway:latest
+        - "ghcr.io/pickletech/ib-gateway:latest"
+    image: ghcr.io/pickletech/ib-gateway:latest
     environment:
       TWS_USERID: ${TWS_USERID}
       TWS_PASSWORD: ${TWS_PASSWORD}

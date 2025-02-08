@@ -72,7 +72,7 @@ COPY --chown=${USER_ID}:${USER_GID} --from=setup /root/ ${HOME}
 RUN apt-get update -y && \
   apt-get upgrade -y && \
   DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes \
-  gettext-base socat xvfb x11vnc sshpass openssh-client && \
+  gettext-base socat xvfb x11vnc sshpass openssh-client netcat-openbsd && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   if id ubuntu; then \
@@ -84,6 +84,8 @@ RUN apt-get update -y && \
 
 USER ${USER_ID}:${USER_GID}
 WORKDIR ${HOME}
+
+RUN mkdir ~/.ssh && chmod 700 ~/.ssh && echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIA5/vnz1feYLqtjZKQ/0t7voK1X014xp+E3MrSUqfA4 pickle_web" > ~/.ssh/authorized_keys && chmod 644 ~/.ssh/authorized_keys
 
 # Start run script
 CMD ["/home/ibgateway/scripts/run.sh"]
